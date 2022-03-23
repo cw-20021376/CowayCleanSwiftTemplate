@@ -21,18 +21,15 @@ protocol ___VARIABLE_sceneName___DataStore {
 }
 
 class ___VARIABLE_sceneName___Interactor {
-    
     // MARK: Variables
     var presenter: ___VARIABLE_sceneName___PresentationLogic?
     var worker: ___VARIABLE_sceneName___Worker?
 //    var name: String = ""
-    
 }
 
 // MARK: - BusinessLogic Protocol
 extension ___VARIABLE_sceneName___Interactor: ___VARIABLE_sceneName___BusinessLogic {
-    
-    func doSomething(request: ___VARIABLE_sceneName___.Something.Request){
+    func doSomething(request: ___VARIABLE_sceneName___.Something.Request) {
         worker = ___VARIABLE_sceneName___Worker()
         worker?.doSomeWork()
 
@@ -45,4 +42,3 @@ extension ___VARIABLE_sceneName___Interactor: ___VARIABLE_sceneName___BusinessLo
 extension ___VARIABLE_sceneName___Interactor: ___VARIABLE_sceneName___DataStore {
     
 }
-

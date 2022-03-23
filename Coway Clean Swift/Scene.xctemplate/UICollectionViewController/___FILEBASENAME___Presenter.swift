@@ -17,15 +17,12 @@ protocol ___VARIABLE_sceneName___PresentationLogic {
 }
 
 class ___VARIABLE_sceneName___Presenter {
-    
     // MARK: Variables
     weak var viewController: ___VARIABLE_sceneName___DisplayLogic?
-
 }
 
 // MARK: - PresentationLogic Protocol
 extension ___VARIABLE_sceneName___Presenter: ___VARIABLE_sceneName___PresentationLogic {
-    
     // MARK: Do something
     func presentSomething(response: ___VARIABLE_sceneName___.Something.Response) {
         

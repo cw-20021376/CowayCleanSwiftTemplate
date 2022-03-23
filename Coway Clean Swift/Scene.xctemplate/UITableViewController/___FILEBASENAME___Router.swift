@@ -21,11 +21,9 @@ protocol ___VARIABLE_sceneName___DataPassing {
 }
 
 class ___VARIABLE_sceneName___Router: NSObject {
-    
     // MARK: Variables
     weak var viewController: ___VARIABLE_sceneName___ViewController?
     var dataStore: ___VARIABLE_sceneName___DataStore?
-  
 
     // MARK: Navigation
 //    func navigateToSomewhere(source: ___VARIABLE_sceneName___ViewController, destination: SomewhereViewController) {
@@ -35,7 +33,6 @@ class ___VARIABLE_sceneName___Router: NSObject {
 
 // MARK: - RoutingLogic Protocol
 extension ___VARIABLE_sceneName___Router: ___VARIABLE_sceneName___RoutingLogic {
-    
 //    func routeToSomewhere(segue: UIStoryboardSegue?) {
 //        if let segue = segue {
 //            let destinationVC = segue.destination as! SomewhereViewController
@@ -53,7 +50,6 @@ extension ___VARIABLE_sceneName___Router: ___VARIABLE_sceneName___RoutingLogic {
 
 // MARK: - DataPassing Protocol
 extension ___VARIABLE_sceneName___Router: ___VARIABLE_sceneName___DataPassing {
-    
 //    func passDataToSomewhere(source: ___VARIABLE_sceneName___DataStore, destination: inout SomewhereDataStore) {
 //        destination.name = source.name
 //    }
