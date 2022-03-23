@@ -12,70 +12,78 @@
 
 import UIKit
 
-protocol ___VARIABLE_sceneName___DisplayLogic: AnyObject {
-    func displaySomething(viewModel: ___VARIABLE_sceneName___.Something.ViewModel)
+protocol ___VARIABLE_sceneName___DisplayLogic: class
+{
+  func displaySomething(viewModel: ___VARIABLE_sceneName___.Something.ViewModel)
 }
 
-class ___VARIABLE_sceneName___ViewController: UIViewController {
-    
-    // MARK: - Variables
-    var interactor: ___VARIABLE_sceneName___BusinessLogic?
-    var router: (NSObjectProtocol & ___VARIABLE_sceneName___RoutingLogic & ___VARIABLE_sceneName___DataPassing)?
+class ___VARIABLE_sceneName___ViewController: UIViewController, ___VARIABLE_sceneName___DisplayLogic
+{
+  var interactor: ___VARIABLE_sceneName___BusinessLogic?
+  var router: (NSObjectProtocol & ___VARIABLE_sceneName___RoutingLogic & ___VARIABLE_sceneName___DataPassing)?
 
-    // MARK: Object lifecycle
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
+  // MARK: Object lifecycle
   
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+  {
+    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    setup()
+  }
   
-    // MARK: Setup
-    private func setup() {
-        let viewController = self
-        let interactor = ___VARIABLE_sceneName___Interactor()
-        let presenter = ___VARIABLE_sceneName___Presenter()
-        let router = ___VARIABLE_sceneName___Router()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
-    }
+  required init?(coder aDecoder: NSCoder)
+  {
+    super.init(coder: aDecoder)
+    setup()
+  }
   
-    // MARK: Routing
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
+  // MARK: Setup
   
-    // MARK: View lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        doSomething()
-    }
+  private func setup()
+  {
+    let viewController = self
+    let interactor = ___VARIABLE_sceneName___Interactor()
+    let presenter = ___VARIABLE_sceneName___Presenter()
+    let router = ___VARIABLE_sceneName___Router()
+    viewController.interactor = interactor
+    viewController.router = router
+    interactor.presenter = presenter
+    presenter.viewController = viewController
+    router.viewController = viewController
+    router.dataStore = interactor
+  }
   
-    // MARK: Do something
-//    @IBOutlet weak var nameTextField: UITextField!
+  // MARK: Routing
   
-    func doSomething() {
-        let request = ___VARIABLE_sceneName___.Something.Request()
-        interactor?.doSomething(request: request)
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+  {
+    if let scene = segue.identifier {
+      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+      if let router = router, router.responds(to: selector) {
+        router.perform(selector, with: segue)
+      }
     }
-}
-
-// MARK: - DisplayLogic Protocol
-extension ___VARIABLE_sceneName___ViewController: ___VARIABLE_sceneName___DisplayLogic {
-    
-    func displaySomething(viewModel: ___VARIABLE_sceneName___.Something.ViewModel) {
-//        nameTextField.text = viewModel.name
-    }
+  }
+  
+  // MARK: View lifecycle
+  
+  override func viewDidLoad()
+  {
+    super.viewDidLoad()
+    doSomething()
+  }
+  
+  // MARK: Do something
+  
+  //@IBOutlet weak var nameTextField: UITextField!
+  
+  func doSomething()
+  {
+    let request = ___VARIABLE_sceneName___.Something.Request()
+    interactor?.doSomething(request: request)
+  }
+  
+  func displaySomething(viewModel: ___VARIABLE_sceneName___.Something.ViewModel)
+  {
+    //nameTextField.text = viewModel.name
+  }
 }
