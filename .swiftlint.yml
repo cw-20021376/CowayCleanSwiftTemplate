@@ -110,10 +110,10 @@ only_rules:
 ### Then 사용
 
 line_length:
- warning: 180
- error: 200
+ warning: 150
+ error: 150
 
 excluded:
 - Pods
-- SubCWPopup/AppDelegate.swift
-- SubCWPopup/SceneDelegate.swift
+- {YOUR_FOLDER}/AppDelegate.swift
+- {YOUR_FOLDER}/SceneDelegate.swift
