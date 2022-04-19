@@ -11,9 +11,11 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
 protocol HomeDisplayLogic: AnyObject {
-    func displaySomething(viewModel: Home.Something.ViewModel)
+    func displayPopup(viewModel: Home.ShowPopoup.ViewModel)
 }
 
 class HomeViewController: UIViewController {
@@ -39,9 +41,7 @@ class HomeViewController: UIViewController {
         let presenter = HomePresenter()
         let router = HomeRouter()
         let worker = HomeWorker()
-        let repository = APIRepository()
-        
-        
+        let repository = PopupRepository(service: NetworkService.shared)
         
         viewController.interactor = interactor
         viewController.router = router
@@ -70,22 +70,64 @@ class HomeViewController: UIViewController {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        
+        setupUI()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.showPopup()
+        }
     }
   
-    // MARK: Do something
-//    @IBOutlet weak var nameTextField: UITextField!
+    // MARK: UI Components
+    var activityIndicator: UIActivityIndicatorView!
   
-    func doSomething() {
-        let request = Home.Something.Request()
-        interactor?.doSomething(request: request)
+    // MARK: - Do Somethings
+    func showPopup() {
+        let request = Home.ShowPopoup.Request(placement: "login")
+        interactor?.requestPopup(request: request)
     }
 }
 
 // MARK: - DisplayLogic Protocol
 extension HomeViewController: HomeDisplayLogic {
+    func displayPopup(viewModel: Home.ShowPopoup.ViewModel) {
+        let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
+        let frame = CGRect(x: 0, y: navigationBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - navigationBarHeight)
+        
+        let popupListView = PopupListView(frame: frame, viewModel: viewModel)
+        popupListView.delegate = self
+        view.addSubview(popupListView)
+        
+        activityIndicator.stopAnimating()
+    }
+}
+
+// MARK: - PopupListView Delegate
+extension HomeViewController: PopupListViewDelegate {
+    func didClickPopupButton(_ view: PopupListView, _ popup: Popup) {
+        print("didselect")
+        print(popup)
+    }
+}
+
+// MARK: - UILayout
+extension HomeViewController {
+    func setupUI() {
+        view.backgroundColor = .white
+        
+        setupActivity()
+    }
     
-    func displaySomething(viewModel: Home.Something.ViewModel) {
-//        nameTextField.text = viewModel.name
+    func setupActivity() {
+        activityIndicator = UIActivityIndicatorView().then {
+            view.addSubview($0)
+            $0.style = .large
+            $0.color = .darkGray
+            $0.startAnimating()
+        }
+        
+        activityIndicator.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+        }
     }
 }

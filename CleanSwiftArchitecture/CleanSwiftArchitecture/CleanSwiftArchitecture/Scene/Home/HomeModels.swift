@@ -14,9 +14,17 @@ import UIKit
 
 enum Home {
     // MARK: Use cases
-    enum Something {
-        struct Request {}
-        struct Response {}
-        struct ViewModel {}
+    enum ShowPopoup {
+        struct Request {
+            var placement: String
+        }
+        
+        struct Response {
+            var popups: [Popup]
+        }
+        
+        struct ViewModel {
+            var popups: [Popup]
+        }
     }
 }

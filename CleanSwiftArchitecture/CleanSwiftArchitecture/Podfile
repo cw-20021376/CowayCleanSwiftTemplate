@@ -7,6 +7,8 @@ target 'CleanSwiftArchitecture' do
 
   # Pods for CleanSwiftArchitecture
   pod 'Alamofire'
+  pod 'SnapKit'
+  pod 'Then'
 
   target 'CleanSwiftArchitectureTests' do
     inherit! :search_paths

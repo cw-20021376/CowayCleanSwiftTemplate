@@ -13,11 +13,19 @@
 import UIKit
 
 class HomeWorker {
-    var repository: APIRepositoryProtocol?
+    var repository: PopupRepositoryProtocol?
     
-    func doSomeWork() {
-        repository?.request(completion: { result in
-            print(result)
+    func fetchPopups(placement: String, completion: @escaping ([Popup]) -> Void) {
+        repository?.requestPopupList(completion: { result in
+            switch result {
+            case .success(let object):
+                let popups = object.map { $0.toPopup() }
+                completion(popups)
+            
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion([])
+            }
         })
     }
 }

@@ -13,7 +13,7 @@
 import UIKit
 
 protocol HomePresentationLogic {
-    func presentSomething(response: Home.Something.Response)
+    func presentPopup(response: Home.ShowPopoup.Response)
 }
 
 class HomePresenter {
@@ -24,9 +24,8 @@ class HomePresenter {
 // MARK: - PresentationLogic Protocol
 extension HomePresenter: HomePresentationLogic {
     // MARK: Do something
-    func presentSomething(response: Home.Something.Response) {
-        
-        let viewModel = Home.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
+    func presentPopup(response: Home.ShowPopoup.Response) {
+        let viewModel = Home.ShowPopoup.ViewModel(popups: response.popups)
+        viewController?.displayPopup(viewModel: viewModel)
     }
 }

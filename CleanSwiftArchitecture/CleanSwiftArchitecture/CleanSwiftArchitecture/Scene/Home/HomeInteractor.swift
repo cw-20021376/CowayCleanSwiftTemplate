@@ -13,28 +13,31 @@
 import UIKit
 
 protocol HomeBusinessLogic {
-    func doSomething(request: Home.Something.Request)
+    func requestPopup(request: Home.ShowPopoup.Request)
 }
 
 protocol HomeDataStore {
-//    var name: String { get set }
+    var popups: [Popup] { get set }
 }
 
 class HomeInteractor {
     // MARK: Variables
     var presenter: HomePresentationLogic?
     var worker: HomeWorker?
-//    var name: String = ""
+    var popups: [Popup] = []
 }
 
 // MARK: - BusinessLogic Protocol
 extension HomeInteractor: HomeBusinessLogic {
-    func doSomething(request: Home.Something.Request) {
-        worker = HomeWorker()
-        worker?.doSomeWork()
-
-        let response = Home.Something.Response()
-        presenter?.presentSomething(response: response)
+    func requestPopup(request: Home.ShowPopoup.Request) {
+        worker?.fetchPopups(placement: request.placement, completion: { [weak self] popups in
+            guard let self = self else { return }
+            
+            self.popups = popups
+            
+            let response = Home.ShowPopoup.Response(popups: popups)
+            self.presenter?.presentPopup(response: response)
+        })
     }
 }
 
