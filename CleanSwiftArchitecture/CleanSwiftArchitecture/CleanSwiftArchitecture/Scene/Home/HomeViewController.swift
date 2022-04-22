@@ -41,7 +41,7 @@ class HomeViewController: UIViewController {
         let presenter = HomePresenter()
         let router = HomeRouter()
         let worker = HomeWorker()
-        let repository = PopupRepository(service: NetworkService.shared)
+        let repository = PopupRepository()
         
         viewController.interactor = interactor
         viewController.router = router

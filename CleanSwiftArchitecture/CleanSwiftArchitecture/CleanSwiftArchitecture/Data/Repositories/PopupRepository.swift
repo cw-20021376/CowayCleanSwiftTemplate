@@ -8,13 +8,8 @@
 import Foundation
 
 class PopupRepository: PopupRepositoryProtocol {
-    let service: NetworkServiceProtocol
-    
-    init(service: NetworkServiceProtocol) {
-        self.service = service
-    }
-    
     func requestPopupList(completion: @escaping (Result<[PopupDTO], Error>) -> Void) {
+        let service = NetworkService.shared
         service.request(endPoint: "/popup/v1",
                         headers: nil,
                         params: ["placement": "login"],
